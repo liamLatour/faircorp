@@ -7,6 +7,7 @@ import java.util.List;
 @Table(name="ROOM")
 public class Room {
     @Id
+    @GeneratedValue
     private Long id;
 
     @Column(nullable = false)
@@ -15,14 +16,13 @@ public class Room {
     @Column(nullable = false)
     private String name;
 
-    private Double currentTemperature;
+    private Double current_temperature;
+    private Double target_temperature;
 
-    private Double targetTemperature;
-
-    @OneToMany
+    @OneToMany(mappedBy = "room")
     private List<Heater> heaters;
 
-    @OneToMany
+    @OneToMany(mappedBy = "room")
     private List<Window> windows;
 
     public Room() {

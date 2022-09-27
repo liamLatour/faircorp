@@ -12,16 +12,20 @@ public class Window {
     @Column(nullable = false)
     private String name;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private WindowStatus windowStatus;
+    private WindowStatus window_status;
+
+    @ManyToOne
+    private Room room;
 
     public Window() {
     }
 
-    public Window(String name, WindowStatus status) {
-        this.windowStatus = status;
+    public Window(String name, WindowStatus window_status, Room room) {
+        this.window_status = window_status;
         this.name = name;
+        this.room = room;
     }
 
     public Long getId() {
@@ -40,11 +44,11 @@ public class Window {
         this.name = name;
     }
 
-    public WindowStatus getWindowStatus() {
-        return windowStatus;
+    public WindowStatus getWindow_status() {
+        return window_status;
     }
 
-    public void setWindowStatus(WindowStatus windowStatus) {
-        this.windowStatus = windowStatus;
+    public void setWindow_status(WindowStatus windowStatus) {
+        this.window_status = windowStatus;
     }
 }

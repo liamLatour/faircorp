@@ -15,18 +15,17 @@ public class Heater {
     private Long power;
 
     @Column(nullable = false)
-    @ManyToOne
-    private Room room;
+    @Enumerated(EnumType.STRING)
+    private HeaterStatus heater_status;
 
-    @Enumerated
-    @Column(nullable = false)
-    private HeaterStatus heaterStatus;
+    @ManyToOne(optional = false)
+    private Room room;
 
     public Heater() {
     }
 
-    public Heater(String name, Room room, HeaterStatus status) {
-        this.heaterStatus = status;
+    public Heater(String name, Room room, HeaterStatus heater_status) {
+        this.heater_status = heater_status;
         this.name = name;
         this.room = room;
     }
