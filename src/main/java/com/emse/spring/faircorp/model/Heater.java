@@ -3,7 +3,7 @@ package com.emse.spring.faircorp.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="RHEATER")
+@Table(name="HEATER")
 public class Heater {
     @Id
     @GeneratedValue
