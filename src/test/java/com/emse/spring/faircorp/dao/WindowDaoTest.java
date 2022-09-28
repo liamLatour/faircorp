@@ -31,6 +31,18 @@ class WindowDaoTest {
     }
 
     @Test
+    public void shouldFindAWindowByName() {
+        List<Window> result = windowDao.findByName("Window 2");
+        Assertions.assertThat(result)
+                .hasSize(2)
+                .extracting("id", "windowStatus")
+                .containsExactly(
+                        Tuple.tuple(-9L, WindowStatus.CLOSED),
+                        Tuple.tuple(-7L, WindowStatus.CLOSED)
+                );
+    }
+
+    @Test
     public void shouldFindRoomOpenWindows() {
         List<Window> result = windowDao.findRoomOpenWindows(-9L);
         Assertions.assertThat(result)
