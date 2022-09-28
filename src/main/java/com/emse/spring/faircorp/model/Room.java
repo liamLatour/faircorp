@@ -32,4 +32,8 @@ public class Room {
         this.floor = floor;
         this.name = name;
     }
+
+    public List<Window> getWindows() {
+        return windows;
+    }
 }
