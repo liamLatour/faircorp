@@ -16,7 +16,7 @@ public class Heater {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private HeaterStatus heater_status;
+    private HeaterStatus heaterStatus;
 
     @ManyToOne(optional = false)
     private Room room;
@@ -24,9 +24,33 @@ public class Heater {
     public Heater() {
     }
 
-    public Heater(String name, Room room, HeaterStatus heater_status) {
-        this.heater_status = heater_status;
+    public Heater(String name, Room room, HeaterStatus heaterStatus) {
+        this.heaterStatus = heaterStatus;
         this.name = name;
         this.room = room;
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public HeaterStatus getHeaterStatus() {
+        return heaterStatus;
+    }
+
+    public void setHeaterStatus(HeaterStatus heaterStatus) {
+        this.heaterStatus = heaterStatus;
     }
 }
