@@ -2,7 +2,6 @@ package com.emse.spring.faircorp.dao;
 
 import com.emse.spring.faircorp.model.*;
 import org.assertj.core.api.Assertions;
-import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ public class HeaterDaoTest {
     private RoomDao roomDao;
 
     @Test
-    public void shouldFindAWindow() {
+    public void shouldFindAHeater() {
         Heater heater = heaterDao.getReferenceById(-10L);
         Assertions.assertThat(heater.getName()).isEqualTo("Heater1");
         Assertions.assertThat(heater.getHeaterStatus()).isEqualTo(HeaterStatus.ON);
