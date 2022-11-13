@@ -24,7 +24,7 @@ public class Heater {
     public Heater() {
     }
 
-    public Heater(String name, Room room, HeaterStatus heaterStatus) {
+    public Heater(Room room, String name, HeaterStatus heaterStatus) {
         this.heaterStatus = heaterStatus;
         this.name = name;
         this.room = room;
@@ -39,15 +39,25 @@ public class Heater {
     }
 
     public String getName() {
-        return name;
+        return this.name;
+    }
+    public Long getPower() {
+        return this.power;
+    }
+    public void setPower(Long power) {
+        this.power = power;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
+    public Room getRoom(){
+        return this.room;
+    }
+
     public HeaterStatus getHeaterStatus() {
-        return heaterStatus;
+        return this.heaterStatus;
     }
 
     public void setHeaterStatus(HeaterStatus heaterStatus) {

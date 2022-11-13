@@ -11,10 +11,10 @@ public class Room {
     private Long id;
 
     @Column(nullable = false)
-    private Integer floor;
+    private String name;
 
     @Column(nullable = false)
-    private String name;
+    private Integer floor;
 
     private Double currentTemperature;
     private Double targetTemperature;
@@ -25,10 +25,14 @@ public class Room {
     @OneToMany(mappedBy = "room")
     private List<Window> windows;
 
+    @ManyToOne(optional = false)
+    private Building building;
+
     public Room() {
     }
 
-    public Room(String name, Integer floor, Double currentTemperature, Double targetTemperature) {
+    public Room(Building building, String name, Integer floor, Double currentTemperature, Double targetTemperature) {
+        this.building = building;
         this.floor = floor;
         this.name = name;
         this.currentTemperature = currentTemperature;
@@ -73,6 +77,10 @@ public class Room {
 
     public void setTargetTemperature(Double targetTemperature) {
         this.targetTemperature = targetTemperature;
+    }
+
+    public Building getBuilding() {
+        return this.building;
     }
 
     public List<Window> getWindows() {

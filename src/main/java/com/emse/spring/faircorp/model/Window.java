@@ -16,13 +16,13 @@ public class Window {
     @Column(nullable = false)
     private WindowStatus windowStatus;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Room room;
 
     public Window() {
     }
 
-    public Window(String name, WindowStatus windowStatus, Room room) {
+    public Window(Room room, String name, WindowStatus windowStatus) {
         this.windowStatus = windowStatus;
         this.name = name;
         this.room = room;
@@ -37,7 +37,11 @@ public class Window {
     }
 
     public String getName() {
-        return name;
+        return this.name;
+    }
+
+    public Room getRoom(){
+        return this.room;
     }
 
     public void setName(String name) {
@@ -45,7 +49,7 @@ public class Window {
     }
 
     public WindowStatus getWindowStatus() {
-        return windowStatus;
+        return this.windowStatus;
     }
 
     public void setWindowStatus(WindowStatus windowStatus) {
