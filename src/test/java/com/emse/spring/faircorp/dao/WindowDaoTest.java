@@ -25,7 +25,7 @@ class WindowDaoTest {
 
     @Test
     public void shouldFindAWindow() {
-        Window window = windowDao.getReferenceById(-10L);
+        Window window = windowDao.findById(-10L).orElseThrow(IllegalArgumentException::new);
         Assertions.assertThat(window.getName()).isEqualTo("Window 1");
         Assertions.assertThat(window.getWindowStatus()).isEqualTo(WindowStatus.CLOSED);
     }
@@ -59,7 +59,7 @@ class WindowDaoTest {
 
     @Test
     public void shouldDeleteWindowsRoom() {
-        Room room = roomDao.getById(-10L);
+        Room room = roomDao.findById(-10L).orElseThrow(IllegalArgumentException::new);
         List<Long> roomIds = room.getWindows().stream().map(Window::getId).collect(Collectors.toList());
         Assertions.assertThat(roomIds.size()).isEqualTo(2);
 

@@ -22,14 +22,14 @@ public class HeaterDaoTest {
 
     @Test
     public void shouldFindAHeater() {
-        Heater heater = heaterDao.getReferenceById(-10L);
+        Heater heater = heaterDao.findById(-10L).orElseThrow(IllegalArgumentException::new);
         Assertions.assertThat(heater.getName()).isEqualTo("Heater1");
         Assertions.assertThat(heater.getHeaterStatus()).isEqualTo(HeaterStatus.ON);
     }
 
     @Test
     public void shouldDeleteHeatersRoom() {
-        Room room = roomDao.getById(-10L);
+        Room room = roomDao.findById(-10L).orElseThrow(IllegalArgumentException::new);
         List<Long> roomIds = room.getWindows().stream().map(Window::getId).collect(Collectors.toList());
         Assertions.assertThat(roomIds.size()).isEqualTo(2);
 

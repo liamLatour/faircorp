@@ -20,10 +20,9 @@ public class RoomController {
     private final HeaterDao heaterDao;
     private final WindowDao windowDao;
     private final RoomDao roomDao;
-
     private final BuildingDao buildingDao;
 
-    public RoomController(BuildingDao buildingDao, HeaterDao heaterDao, WindowDao windowDao, RoomDao roomDao) {
+    public RoomController(RoomDao roomDao, BuildingDao buildingDao, HeaterDao heaterDao, WindowDao windowDao) {
         this.heaterDao = heaterDao;
         this.windowDao = windowDao;
         this.roomDao = roomDao;
@@ -43,7 +42,7 @@ public class RoomController {
     @PostMapping
     public RoomDto create(@RequestBody RoomDto dto) {
         // RoomDto must always contain a building
-        Building building = buildingDao.findById(dto.getBuildingId()).orElseThrow(IllegalArgumentException::new);
+        Building building = buildingDao.getReferenceById(dto.getBuildingId());
         Room room = null;
 
         // On creation id is not defined
@@ -51,7 +50,7 @@ public class RoomController {
             room = roomDao.save(new Room(building, dto.getName(), dto.getFloor(), dto.getCurrentTemperature(), dto.getTargetTemperature()));
         }
         else {
-            room = roomDao.findById(dto.getId()).orElseThrow(IllegalArgumentException::new);
+            room = roomDao.getReferenceById(dto.getId());
             room.setFloor(dto.getFloor());
             room.setName(dto.getName());
             room.setCurrentTemperature(dto.getCurrentTemperature());
@@ -65,32 +64,40 @@ public class RoomController {
     public void delete(@PathVariable Long id) {
         Room room = roomDao.findById(id).orElseThrow(IllegalArgumentException::new);
 
-        for (Heater heater:room.getHeaters()) {
-            heaterDao.deleteById(heater.getId());
+        if(room.getHeaters()!=null){
+            for (Heater heater:room.getHeaters()) {
+                heaterDao.deleteById(heater.getId());
+            }
         }
 
-        for (Window window:room.getWindows()) {
-            windowDao.deleteById(window.getId());
+        if(room.getWindows()!=null){
+            for (Window window:room.getWindows()) {
+                windowDao.deleteById(window.getId());
+            }
         }
 
         roomDao.deleteById(id);
     }
 
     @PutMapping(path = "/{id}/switchWindows")
-    public void switchWindows(@PathVariable Long id) {
+    public RoomDto switchWindows(@PathVariable Long id) {
         Room room  = roomDao.findById(id).orElseThrow(IllegalArgumentException::new);
 
         for (Window window:room.getWindows()) {
             window.setWindowStatus(window.getWindowStatus() == WindowStatus.OPEN ? WindowStatus.CLOSED : WindowStatus.OPEN);
         }
+
+        return new RoomDto(room);
     }
 
     @PutMapping(path = "/{id}/switchHeaters")
-    public void switchHeaters(@PathVariable Long id) {
+    public RoomDto switchHeaters(@PathVariable Long id) {
         Room room  = roomDao.findById(id).orElseThrow(IllegalArgumentException::new);
 
         for (Heater heater:room.getHeaters()) {
             heater.setHeaterStatus(heater.getHeaterStatus() == HeaterStatus.ON ? HeaterStatus.OFF: HeaterStatus.ON);
         }
+
+        return new RoomDto(room);
     }
 }

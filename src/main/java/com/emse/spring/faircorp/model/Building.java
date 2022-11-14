@@ -27,7 +27,6 @@ public class Building {
         this.address = address;
     }
 
-
     public Long getId() {
         return this.id;
     }

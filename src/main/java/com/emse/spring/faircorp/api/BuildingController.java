@@ -1,11 +1,8 @@
 package com.emse.spring.faircorp.api;
 
 import com.emse.spring.faircorp.dao.BuildingDao;
-import com.emse.spring.faircorp.dao.HeaterDao;
 import com.emse.spring.faircorp.dao.RoomDao;
-import com.emse.spring.faircorp.dao.WindowDao;
 import com.emse.spring.faircorp.dto.BuildingDto;
-import com.emse.spring.faircorp.dto.RoomDto;
 import com.emse.spring.faircorp.model.*;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -44,7 +41,7 @@ public class BuildingController {
             building = buildingDao.save(new Building(dto.getName(), dto.getAddress()));
         }
         else {
-            building = buildingDao.findById(dto.getId()).orElseThrow(IllegalArgumentException::new);
+            building = buildingDao.getReferenceById(dto.getId());
             building.setAddress(dto.getAddress());
             building.setName(dto.getName());
         }
@@ -56,8 +53,10 @@ public class BuildingController {
     public void delete(@PathVariable Long id) {
         Building building = buildingDao.findById(id).orElseThrow(IllegalArgumentException::new);
 
-        for (Room room:building.getRooms()) {
-            roomDao.deleteById(room.getId());
+        if(building.getRooms() != null){
+            for (Room room:building.getRooms()) {
+                roomDao.deleteById(room.getId());
+            }
         }
 
         buildingDao.deleteById(id);

@@ -17,7 +17,7 @@ public class RoomDaoTest {
 
     @Test
     public void shouldFindARoom() {
-        Room room = roomDao.getReferenceById(-10L);
+        Room room = roomDao.findById(-10L).orElseThrow(IllegalArgumentException::new);
         Assertions.assertThat(room.getName()).isEqualTo("Room1");
         Assertions.assertThat(room.getFloor()).isEqualTo(1);
         Assertions.assertThat(room.getCurrentTemperature()).isEqualTo(22.3);
