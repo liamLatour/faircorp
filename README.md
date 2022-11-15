@@ -16,12 +16,6 @@ git clone https://github.com/liamLatour/faircorp.git
 
 Faircorp's backend has been tested on OpenJDK v17.0.5, Spring v2.7.5, Gradle v7.5, so be sure you have it installed.
 
-#### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
 #### Compile
 
 ```sh
