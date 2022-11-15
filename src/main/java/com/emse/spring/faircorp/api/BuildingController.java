@@ -22,13 +22,11 @@ public class BuildingController {
         this.roomDao = roomDao;
     }
 
-    @CrossOrigin(origins = "https://liamlatour.github.io")
     @GetMapping
     public List<BuildingDto> findAll() {
         return buildingDao.findAll().stream().map(BuildingDto::new).collect(Collectors.toList());
     }
 
-    @CrossOrigin(origins = "https://liamlatour.github.io")
     @GetMapping(path = "/{id}")
     public BuildingDto findById(@PathVariable Long id) {
         return buildingDao.findById(id).map(BuildingDto::new).orElse(null);
