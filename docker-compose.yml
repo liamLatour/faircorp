@@ -1,0 +1,14 @@
+version: '3'
+services:
+  faircorp-front:
+    image: faircorp-front:latest
+    environment:
+      PORT: 8081
+    ports:
+      - 8081:8081
+  faircorp-back:
+    image: faircorp-back:latest
+    environment:
+      PORT: 8080
+    ports:
+      - 8080:8080

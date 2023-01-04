@@ -1,5 +1,7 @@
 FROM openjdk:17-alpine
 
+ENV PORT=8080
 COPY build/libs/\*.jar app.jar
 
-ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar /app.jar ${0} ${@}"]
+EXPOSE ${PORT}
+ENTRYPOINT java -jar /app.jar --server.port=$PORT
