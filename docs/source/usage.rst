@@ -6,28 +6,22 @@ Usage
 Installation
 ------------
 
-To use Lumache, first install it using pip:
+Start by cloning this repository
 
 .. code-block:: console
 
-   (.venv) $ pip install lumache
+   git clone https://github.com/liamLatour/faircorp.git
 
-Creating recipes
+Prerequisites
+----------------
+Faircorp's backend has been tested on OpenJDK v17.0.5, Spring v2.7.5, Gradle v7.5, so be sure you have it installed.
+
+Compiling
 ----------------
 
-To retrieve a list of random ingredients,
-you can use the ``lumache.get_random_ingredients()`` function:
+To compile the project use:
 
-.. autofunction:: lumache.get_random_ingredients
+.. code-block:: console
 
-The ``kind`` parameter should be either ``"meat"``, ``"fish"``,
-or ``"veggies"``. Otherwise, :py:func:`lumache.get_random_ingredients`
-will raise an exception.
+   ./gradlew build
 
-.. autoexception:: lumache.InvalidKindError
-
-For example:
-
->>> import lumache
->>> lumache.get_random_ingredients()
-['shells', 'gorgonzola', 'parsley']
